@@ -57,7 +57,7 @@ export class CascadeRailsAdapter implements RailsAdapter {
         return { success: false, txRef: '', errorMessage: `SDP ${res.status}: ${errBody}` }
       }
 
-      const data: { id?: string; status?: string } = await res.json()
+      const data = (await res.json()) as { id?: string; status?: string }
       const txRef = data.id ?? `sdp-${Date.now()}`
       console.log(`[CascadeRailsAdapter] payment queued txRef=${txRef}`)
       return { success: true, txRef }
@@ -80,7 +80,7 @@ export class CascadeRailsAdapter implements RailsAdapter {
 
       if (!res.ok) return { status: 'failed', txRef }
 
-      const data: { status?: string; completed_at?: string } = await res.json()
+      const data = (await res.json()) as { status?: string; completed_at?: string }
 
       const statusMap: Record<string, StatusResult['status']> = {
         SUCCESS: 'completed',

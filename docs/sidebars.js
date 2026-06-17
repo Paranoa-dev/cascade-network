@@ -7,7 +7,7 @@ const sidebars = {
     },
     {
       type: 'category', label: 'Guides',
-      items: ['guides/hook-authoring', 'guides/custom-rails'],
+      items: ['guides/custom-rails'],
     },
     {
       type: 'category', label: 'API Reference',
