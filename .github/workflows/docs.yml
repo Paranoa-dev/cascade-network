@@ -3,10 +3,14 @@ name: CI - docs
 on:
   push:
     branches: [main]
-    paths: ['docs/**']
+    paths:
+      - 'docs/**'
+      - '.github/workflows/docs.yml'
   pull_request:
     branches: [main]
-    paths: ['docs/**']
+    paths:
+      - 'docs/**'
+      - '.github/workflows/docs.yml'
 
 jobs:
   build-and-test:
