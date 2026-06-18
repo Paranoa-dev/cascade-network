@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import VolumeChart from '../components/VolumeChart'
 
 const STATS = [
   { label: 'Disbursed (all time)', value: '$2,400,000', sub: '+$14k today', accent: 'text-purple-400' },
@@ -22,7 +23,6 @@ const STATUS_STYLE: Record<string, string> = {
   Failed:    'bg-red-900/40 text-red-300 border-red-800/50',
 }
 
-const VOLUME_BARS = [42, 67, 55, 89, 74, 91, 63, 78, 82, 95, 71, 88, 56, 73]
 
 export default function OverviewPage() {
   const [activePayments, setActivePayments] = useState(3)
@@ -61,19 +61,7 @@ export default function OverviewPage() {
         ))}
       </div>
 
-      {/* Volume sparkline */}
-      <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-5 py-5">
-        <div className="flex items-center justify-between mb-4">
-          <p className="text-sm font-medium text-white/70">Payment volume (14d)</p>
-          <span className="text-xs text-emerald-400 font-mono">↑ +23% vs prior period</span>
-        </div>
-        <div className="flex items-end gap-1 h-16">
-          {VOLUME_BARS.map((h, i) => (
-            <div key={i} className="flex-1 rounded-sm bg-purple-500/40 hover:bg-purple-400/60 transition-colors cursor-pointer"
-              style={{ height: `${h}%` }} title={`Day ${i+1}`} />
-          ))}
-        </div>
-      </div>
+      <VolumeChart />
 
       {/* Payment feed */}
       <div>

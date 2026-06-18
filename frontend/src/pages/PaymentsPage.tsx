@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { toCSV, downloadCSV } from '../utils/csv'
 
 const ALL_PAYMENTS = [
   { id: 'PAY-001', receiver: 'GABC...XYZ', amount: '$120.00', asset: 'USDC', status: 'Completed', memo: 'Aid batch #12', time: '2026-05-10 12:01' },
@@ -21,11 +22,23 @@ export default function PaymentsPage() {
 
   const visible = filter === 'All' ? ALL_PAYMENTS : ALL_PAYMENTS.filter(p => p.status === filter)
 
+  const handleExport = () => {
+    downloadCSV(toCSV(visible), `payments-${filter.toLowerCase()}-${Date.now()}.csv`)
+  }
+
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold mb-1">Payments</h1>
-        <p className="text-gray-400 text-sm">All disbursement payments and their current status</p>
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <div>
+          <h1 className="text-2xl font-bold mb-1">Payments</h1>
+          <p className="text-gray-400 text-sm">All disbursement payments and their current status</p>
+        </div>
+        <button
+          onClick={handleExport}
+          className="px-4 py-2 rounded-xl bg-purple-700 hover:bg-purple-600 text-white text-sm font-medium transition-colors"
+        >
+          ↓ Export CSV
+        </button>
       </div>
 
       <div className="flex gap-2">
